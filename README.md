@@ -1,5 +1,10 @@
 # Unhas Online Judge - Installation Guide
 
+> **Repository Links:**
+> - Frontend: [UHOJ-FE](https://github.com/rnrran/UHOJ-FE/)
+> - Backend: [UHOJ-BE](https://github.com/rnrran/UHOJ-BE)
+> - Deploy: [UHOJ](https://github.com/rnrran/UHOJ)
+
 
 ## Prerequisites
 
@@ -317,18 +322,23 @@ chmod -R 755 ./data
 OnlineJudgeDeploy/
 ├── docker-compose.yml          # Main Docker Compose configuration
 ├── backend-src/                # Backend source code (Django)
-│   ├── Dockerfile              # Backend Dockerfile
+│   ├── Dockerfile              # Backend Dockerfile (multi-stage build)
 │   └── deploy/                 # Deployment scripts
 ├── frontend-src/               # Frontend source code (Vue.js)
-│   ├── Dockerfile              # Frontend Dockerfile (standalone)
+│   ├── Dockerfile              # Frontend Dockerfile (standalone, not used)
 │   └── src/                    # Vue.js source files
 ├── data/                       # Persistent data (volumes)
 │   ├── backend/                # Backend data
 │   ├── postgres/               # Database data
 │   └── redis/                  # Redis data
-└── docs/                       # Documentation
-    └── docker-tutorial/        # Docker tutorial for beginners
+├── docs/                       # Documentation
+│   ├── docker-tutorial/        # Docker tutorial for beginners
+│   ├── problems/               # Problem templates
+│   └── ...                     # Other documentation
+└── logo.png                    # Logo Unhas (used as favicon)
 ```
+
+**Note:** Frontend di-build dalam `backend-src/Dockerfile` menggunakan multi-stage build. Frontend standalone Dockerfile (`frontend-src/Dockerfile`) tidak digunakan dalam deployment ini.
 
 ## Test Case Format
 
@@ -412,6 +422,14 @@ Data aplikasi disimpan di folder `data/` di host, sehingga bisa di-backup dan di
 **Data akan tetap sama setelah migrasi!**
 
 Untuk panduan lengkap, lihat: [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)
+
+## Repository Links
+
+### Unhas Online Judge (UHOJ) Repositories
+
+- **Frontend (UHOJ-FE):** [https://github.com/rnrran/UHOJ-FE/](https://github.com/rnrran/UHOJ-FE/)
+- **Backend (UHOJ-BE):** [https://github.com/rnrran/UHOJ-BE](https://github.com/rnrran/UHOJ-BE)
+- **Deploy (UHOJ):** [https://github.com/rnrran/UHOJ](https://github.com/rnrran/UHOJ)
 
 ## Additional Resources
 
