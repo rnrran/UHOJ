@@ -1,0 +1,11 @@
+data/
+.git/
+*.md
+.gitignore
+backup/
+frontend-src/node_modules
+frontend-src/dist
+frontend-src/.git
+backend-src/.git
+*.log
+
