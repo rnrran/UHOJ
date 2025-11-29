@@ -175,12 +175,6 @@ During the Docker build and startup process, the system **automatically creates 
 
 **User registration is disabled by default** for security reasons. Only the super administrator can create new user accounts through the admin panel.
 
-**To enable user registration** (not recommended for production):
-1. Login as super admin at `/admin`
-2. Navigate to **System Configuration**
-3. Enable "Allow Register" option
-4. Save changes
-
 **To create users manually:**
 1. Login as super admin
 2. Go to `/admin` → **User Management**
@@ -341,10 +335,6 @@ OnlineJudgeDeploy/
 │   ├── backend/                # Backend data
 │   ├── postgres/               # Database data
 │   └── redis/                  # Redis data
-├── docs/                       # Documentation
-│   ├── docker-tutorial/        # Docker tutorial for beginners
-│   ├── problems/               # Problem templates
-│   └── ...                     # Other documentation
 └── logo.png                    # Logo Unhas (used as favicon)
 ```
 
@@ -383,20 +373,7 @@ test_case.zip
 
 **For detailed guide, see:** [docs/TEST_CASE_FORMAT.md](docs/TEST_CASE_FORMAT.md)
 
-## Database Persistence
-
-**✅ Database TERSIMPAN secara permanen!**
-
-Data database (users, problems, submissions, contests) disimpan di folder `data/postgres/` di host. Ketika Anda melakukan `docker-compose down` dan `docker-compose up` lagi, **data tidak akan hilang**.
-
-**Lokasi penyimpanan:**
-- **PostgreSQL:** `./data/postgres/` (semua data database)
-- **Redis:** `./data/redis/` (cache data)
-- **Backend:** `./data/backend/` (test cases, uploads)
-
 **⚠️ PENTING:** Jangan hapus folder `data/` jika ingin mempertahankan data!
-
-Untuk detail lengkap, lihat: [docs/DATABASE_PERSISTENCE.md](docs/DATABASE_PERSISTENCE.md)
 
 ## Export Nilai untuk Ujian
 
