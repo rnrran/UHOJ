@@ -5,6 +5,8 @@
 > - Backend: [UHOJ-BE](https://github.com/rnrran/UHOJ-BE)
 > - Deploy: [UHOJ](https://github.com/rnrran/UHOJ)
 
+> **Note:** Repository ini menggunakan Git Submodules. Folder `backend-src/` dan `frontend-src/` adalah submodules yang link ke repository terpisah. Untuk clone dengan submodules: `git clone --recursive https://github.com/rnrran/UHOJ.git`
+
 
 ## Prerequisites
 
@@ -52,13 +54,21 @@ Follow the official Docker installation guide: [https://docs.docker.com/install/
 
 ### 1. Clone or Navigate to Project Directory
 
-```bash
-# If cloning from repository
-git clone <repository-url> && cd OnlineJudgeDeploy
+**⚠️ IMPORTANT:** Repository ini menggunakan Git Submodules. Folder `backend-src/` dan `frontend-src/` adalah submodules yang link ke repository terpisah.
 
-# Or if you already have the project
+```bash
+# Clone repository dengan submodules (PENTING!)
+git clone --recursive https://github.com/rnrran/UHOJ.git
+cd UHOJ
+
+# Atau jika sudah clone tanpa submodules, update submodules:
+git submodule update --init --recursive
+
+# Atau jika you already have the project
 cd OnlineJudgeDeploy
 ```
+
+**Note:** Jika folder `backend-src/` dan `frontend-src/` kosong setelah clone, jalankan `git submodule update --init --recursive`.
 
 ### 2. Build the Application
 
@@ -431,6 +441,43 @@ Untuk panduan lengkap, lihat: [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)
 - **Backend (UHOJ-BE):** [https://github.com/rnrran/UHOJ-BE](https://github.com/rnrran/UHOJ-BE)
 - **Deploy (UHOJ):** [https://github.com/rnrran/UHOJ](https://github.com/rnrran/UHOJ)
 
+## Git Submodules
+
+Repository ini menggunakan **Git Submodules** untuk menghubungkan `backend-src/` dan `frontend-src/` ke repository terpisah:
+
+- `backend-src/` → [UHOJ-BE](https://github.com/rnrran/UHOJ-BE)
+- `frontend-src/` → [UHOJ-FE](https://github.com/rnrran/UHOJ-FE)
+
+Di GitHub, folder tersebut akan menampilkan sebagai link ke repository aslinya (bukan `blob/...`).
+
+**Setup Submodules (untuk maintainer):**
+```bash
+# Hapus folder yang sudah ada dari git (jika sudah di-commit)
+git rm -r --cached backend-src frontend-src
+
+# Tambahkan sebagai submodules
+git submodule add https://github.com/rnrran/UHOJ-BE.git backend-src
+git submodule add https://github.com/rnrran/UHOJ-FE.git frontend-src
+
+# Commit perubahan
+git commit -m "Convert backend-src and frontend-src to submodules"
+git push
+```
+
+**Update Submodules (untuk user):**
+```bash
+# Clone dengan submodules
+git clone --recursive https://github.com/rnrran/UHOJ.git
+
+# Atau update submodules jika sudah clone
+git submodule update --init --recursive
+
+# Update ke latest version
+git submodule update --remote
+```
+
+**Lihat dokumentasi lengkap:** [docs/GIT_SUBMODULES.md](docs/GIT_SUBMODULES.md)
+
 ## Additional Resources
 
 - **Original Documentation:** http://opensource.qduoj.com/
@@ -439,6 +486,7 @@ Untuk panduan lengkap, lihat: [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)
 - **Database Persistence:** See `docs/DATABASE_PERSISTENCE.md` for database storage details
 - **Export Grades:** See `docs/EXPORT_GRADES.md` for exporting grades and submissions
 - **Migration Guide:** See `docs/MIGRATION_GUIDE.md` for migrating to another machine
+- **Git Submodules Guide:** See `docs/GIT_SUBMODULES.md` for Git Submodules setup and usage
 - **GitHub Issues:** Report issues in the project repository
 
 ## License
