@@ -453,31 +453,12 @@ git submodule update --init --recursive
 git submodule update --remote
 ```
 
-**Lihat dokumentasi lengkap:** [docs/GIT_SUBMODULES.md](docs/GIT_SUBMODULES.md)
-
-## Nginx Virtual Hosting Setup
-
-Jika server Anda sudah memiliki nginx berjalan di port 80, Anda bisa setup OnlineJudge menggunakan virtual hosting dengan reverse proxy.
-
-**Langkah-langkah:**
-1. Ubah port mapping di `docker-compose.yml` ke `127.0.0.1:8080:8000`
-2. Setup nginx virtual host dengan reverse proxy ke `127.0.0.1:8080`
-3. Enable virtual host dan reload nginx
-
-**Lihat dokumentasi lengkap:** [docs/NGINX_VIRTUAL_HOST.md](docs/NGINX_VIRTUAL_HOST.md)
-
-**File contoh:** `docker-compose.nginx-proxy.yml.example`
-
 ## Additional Resources
 
 - **Original Documentation:** http://opensource.qduoj.com/
-- **Docker Tutorial:** See `docs/docker-tutorial/` for comprehensive Docker guide
 - **Test Case Format Guide:** See `docs/TEST_CASE_FORMAT.md` for detailed test case format
-- **Database Persistence:** See `docs/DATABASE_PERSISTENCE.md` for database storage details
 - **Export Grades:** See `docs/EXPORT_GRADES.md` for exporting grades and submissions
 - **Migration Guide:** See `docs/MIGRATION_GUIDE.md` for migrating to another machine
-- **Git Submodules Guide:** See `docs/GIT_SUBMODULES.md` for Git Submodules setup and usage
-- **Nginx Virtual Hosting:** See `docs/NGINX_VIRTUAL_HOST.md` for setting up with existing nginx
 - **GitHub Issues:** Report issues in the project repository
 
 ## License
