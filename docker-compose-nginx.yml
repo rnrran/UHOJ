@@ -1,0 +1,69 @@
+# Example docker-compose.yml untuk setup dengan Nginx Reverse Proxy
+# Copy file ini ke docker-compose.yml dan sesuaikan konfigurasi
+
+services:
+
+  oj-redis:
+    image: redis:4.0-alpine
+    restart: always
+    volumes:
+      - ./data/redis:/data
+
+  oj-postgres:
+    image: postgres:10-alpine
+    restart: always
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=onlinejudge
+      - POSTGRES_USER=onlinejudge
+      - POSTGRES_PASSWORD=onlinejudge
+
+  oj-judge:
+    image: registry.cn-hongkong.aliyuncs.com/oj-image/judge:1.6.1
+    restart: always
+    read_only: true
+    cap_drop:
+      - SETPCAP
+      - MKNOD
+      - NET_BIND_SERVICE
+      - SYS_CHROOT
+      - SETFCAP
+      - FSETID
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./data/backend/test_case:/test_case:ro
+      - ./data/judge_server/log:/log
+      - ./data/judge_server/run:/judger
+    environment:
+      - SERVICE_URL=http://oj-judge:8080
+      - BACKEND_URL=http://oj-backend:8000/api/judge_server_heartbeat/
+      - TOKEN=CHANGE_THIS
+      # - judger_debug=1
+
+  oj-backend:
+    build:
+      context: .
+      dockerfile: backend-src/Dockerfile
+    restart: always
+    depends_on:
+      - oj-redis
+      - oj-postgres
+      - oj-judge
+    volumes:
+      - ./data/backend:/data
+    environment:
+      - POSTGRES_DB=onlinejudge
+      - POSTGRES_USER=onlinejudge
+      - POSTGRES_PASSWORD=onlinejudge
+      - JUDGE_SERVER_TOKEN=CHANGE_THIS
+      # Uncomment jika menggunakan HTTPS di nginx reverse proxy
+      # - FORCE_HTTPS=1
+      # - STATIC_CDN_HOST=cdn.oj.com
+    ports:
+      # IMPORTANT: Hanya expose ke localhost untuk reverse proxy
+      # Format: "127.0.0.1:HOST_PORT:CONTAINER_PORT"
+      - "127.0.0.1:8080:8000"  # ← Ubah 8080 ke port lain jika diperlukan
+      # Jangan gunakan: "0.0.0.0:8080:8000" (akan conflict dengan nginx di host)
+
