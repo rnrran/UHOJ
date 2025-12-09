@@ -1,6 +1,7 @@
 [submodule "backend-src"]
 	path = backend-src
-	url = git@github.com:rnrran/UHOJ-BE.git
+	url = https://github.com/rnrran/UHOJ-BE.git
+	branch = master
 [submodule "frontend-src"]
 	path = frontend-src
-	url = git@github.com/rnrran/UHOJ-FE.git
+	url = https://github.com/rnrran/UHOJ-FE.git
